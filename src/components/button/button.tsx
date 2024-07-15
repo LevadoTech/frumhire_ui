@@ -6,8 +6,8 @@ const button = (props: { clear?: boolean; size?: 'small' | 'medium' | 'large' })
     props.size === 'small' && 'h-[40px] p-[0px_18px] text-[1.4rem] font-[400]',
     props.size === 'medium' && 'h-[60px] p-[0px_36px] text-[1.5rem] font-[500]',
     props.size === 'large' && 'h-[80px] p-[0px_42px] text-[1.7rem] font-[600]',
-    !props.clear && 'hover:bg-primaryHover bg-primary text-white',
-    props.clear && 'hover:bg-whiteHover bg-white text-primary',
+    !props.clear && 'bg-primary text-white hover:bg-primaryHover',
+    props.clear && 'bg-white text-primary hover:bg-whiteHover',
     'transition-all duration-300 ease-in-out',
 
     'focus-visible:shadow-focus'
