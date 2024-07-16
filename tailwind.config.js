@@ -18,6 +18,7 @@ module.exports = {
         primary: '#121212',
         primaryHover: '#292929',
         primaryFocus: '#898989',
+        primary3: '#b8b8b8',
         white: '#ffffff',
         whiteHover: '#f5f5f5',
         black: '#000000',
