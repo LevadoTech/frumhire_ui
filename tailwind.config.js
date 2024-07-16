@@ -3,11 +3,17 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    height: {
+      header: '80px'
+    },
+    padding: {
+      header: '80px'
+    },
+
     extend: {
       boxShadow: {
         focus: '0 0 0 2px rgba(137,137,137, .6)'
       },
-      transition: 'all .3s ease-in-out',
       colors: {
         primary: '#121212',
         primaryHover: '#292929',

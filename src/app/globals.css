@@ -8,3 +8,7 @@ html {
 * {
   outline: none !important;
 }
+
+.transition {
+  transition: all 0.3s ease-in-out;
+}

@@ -1,15 +1,18 @@
 import { Button } from '@/components/button/button';
+import { Link } from '@/components/link/link';
 import { classnames } from '@/utils/classnames';
 
-const main = classnames(['flex', 'gap-[20px]', 'items-center', 'justify-center', 'min-h-screen']);
+const page = classnames(['flex', 'gap-[20px]', 'items-center', 'justify-center']);
 
 export default function Home() {
   return (
-    <main className={main}>
-      <Button size="large">Post a New Project</Button>
+    <div className={page}>
+      <Link href="/new-project" size="large">
+        Post a New Project
+      </Link>
       <Button clear size="large">
         Find a Project
       </Button>
-    </main>
+    </div>
   );
 }
