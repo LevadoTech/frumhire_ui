@@ -2,7 +2,7 @@ import NextLink from 'next/link';
 import { button } from '../style-combos/button-styles';
 import { classnames } from '@/utils/classnames';
 
-export interface ButtonProps {
+export interface ButtonLinkProps {
   children: React.ReactNode;
   clear?: boolean;
   size?: 'small' | 'medium' | 'large';
@@ -10,7 +10,13 @@ export interface ButtonProps {
   href: string;
 }
 
-export const Link = ({ children, clear, size = 'small', className, href }: ButtonProps) => {
+export const ButtonLink = ({
+  children,
+  clear,
+  size = 'small',
+  className,
+  href
+}: ButtonLinkProps) => {
   return (
     <NextLink
       href={href || ''}
