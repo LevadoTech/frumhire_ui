@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { Open_Sans } from 'next/font/google';
+import { Rubik } from 'next/font/google';
 import './globals.css';
 import { classnames } from '@/utils/classnames';
 
-const opensans = Open_Sans({ subsets: ['latin'] });
+const rubik = Rubik({ subsets: ['latin'] });
 
 const body = classnames(['bg-background-secondary', 'text-primary']);
 const header = classnames([
@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="he" dir="rtl">
-      <body className={classnames([body, opensans.className])}>
+      <body className={classnames([body, rubik.className])}>
         <header className={header}>FRUM-HIRE</header>
         <main className={main}>{children}</main>
       </body>
