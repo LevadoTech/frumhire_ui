@@ -16,11 +16,12 @@ module.exports = {
       },
       colors: {
         primary: '#121212',
-        primaryHover: '#292929',
-        primaryFocus: '#898989',
-        primary3: '#b8b8b8',
+        primary100: '#292929',
+        primary200: '#4d4d4d',
+        primary300: '#898989',
+        primary400: '#b8b8b8',
+        primary500: '#f5f5f5',
         white: '#ffffff',
-        whiteHover: '#f5f5f5',
         black: '#000000',
         background: {
           secondary: 'rgba(88, 115, 254, 0.04)'
@@ -32,6 +33,7 @@ module.exports = {
 };
 /*
 	#121212	(18,18,18)
+  #292929 
 #4d4d4d	(77,77,77)
 #898989	(137,137,137)
 #b8b8b8	(184,184,184)

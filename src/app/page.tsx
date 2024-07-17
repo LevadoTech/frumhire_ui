@@ -1,6 +1,6 @@
 import { Button } from '@/components/button/button';
 import { ButtonLink } from '@/components/link/button-link';
-import { SitePage } from '@/components/site-page';
+import { SitePage } from '@/components/site/site-page';
 import { classnames } from '@/utils/classnames';
 
 const page = classnames(['flex', 'gap-[20px]', 'items-center', 'justify-center']);

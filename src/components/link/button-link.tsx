@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { button } from '../style-combos/button-styles';
+import { button } from '../shared-styles/button-styles';
 import { classnames } from '@/utils/classnames';
 
 export interface ButtonLinkProps {

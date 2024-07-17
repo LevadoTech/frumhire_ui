@@ -1,5 +1,5 @@
 import { classnames } from '@/utils/classnames';
-import { button } from '../style-combos/button-styles';
+import { button } from '../shared-styles/button-styles';
 
 export interface ButtonProps {
   children: React.ReactNode;

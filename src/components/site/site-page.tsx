@@ -1,9 +1,7 @@
+import { classnames } from '@/utils/classnames';
 import { ReactNode } from 'react';
 
-const page = `
-p-[20px]
-
-`;
+const page = classnames(['p-[20px]']);
 
 export interface SitePageProps {
   children: ReactNode;
