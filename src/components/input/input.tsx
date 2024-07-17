@@ -20,11 +20,12 @@ export interface InputProps {
   size?: 'small' | 'medium' | 'large';
   id: string;
   label?: ReactNode;
+  error?: string;
 }
 
-export const Input = ({ value, onChange, size = 'small', id, label }: InputProps) => {
+export const Input = ({ value, onChange, size = 'small', id, label, error }: InputProps) => {
   return (
-    <Field id={id} label={label}>
+    <Field id={id} label={label} error={error}>
       <input
         id={id}
         className={input({ size })}

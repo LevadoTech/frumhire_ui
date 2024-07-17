@@ -23,6 +23,7 @@ module.exports = {
         primary500: '#f5f5f5',
         white: '#ffffff',
         black: '#000000',
+        error: '#ff5e5e',
         background: {
           secondary: 'rgba(88, 115, 254, 0.04)'
         }
