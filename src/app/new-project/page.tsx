@@ -1,5 +1,6 @@
 'use client';
 
+import { Card } from '@/components/card/card';
 import { Input } from '@/components/input/input';
 import { SitePage } from '@/components/site/site-page';
 import { classnames } from '@/utils/classnames';
@@ -12,10 +13,18 @@ const NewProject = () => {
   const [value2, setValue2] = useState('וויינרוב');
   return (
     <SitePage>
-      <form className={form}>
-        <Input id="firstName" label="שם פרטי" value={value} onChange={setValue} error="שדה חובה" />
-        <Input id="lastName" label="שם משפחה" value={value2} onChange={setValue2} />
-      </form>
+      <Card>
+        <form className={form}>
+          <Input
+            id="firstName"
+            label="שם פרטי"
+            value={value}
+            onChange={setValue}
+            error="שדה חובה"
+          />
+          <Input id="lastName" label="שם משפחה" value={value2} onChange={setValue2} />
+        </form>
+      </Card>
     </SitePage>
   );
 };
