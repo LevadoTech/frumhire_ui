@@ -7,14 +7,20 @@ const card = classnames([
 
 const body = classnames(['p-[20px]']);
 
+const titleStyles = classnames(['m-[0_0_12px_0] text-[2.1rem] font-[500] text-primary']);
+
 export interface CardProps {
   children?: ReactNode;
+  title?: ReactNode;
 }
 
-export const Card = ({ children }: CardProps) => {
+export const Card = ({ children, title }: CardProps) => {
   return (
     <div className={classnames(['fh-card', card])}>
-      <div className={classnames([body, 'body'])}>{children}</div>
+      <div className={classnames([body, 'body'])}>
+        {title && <h4 className={classnames(['title', titleStyles])}>{title}</h4>}
+        {children}
+      </div>
     </div>
   );
 };
