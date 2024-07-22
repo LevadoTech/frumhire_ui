@@ -1,6 +1,6 @@
 import { classnames } from '@/utils/classnames';
 import { Field } from '../form/field';
-import { ReactNode } from 'react';
+import { FocusEventHandler, ReactNode } from 'react';
 
 export const input = (props: { size?: 'small' | 'medium' | 'large' }) =>
   classnames([
@@ -21,12 +21,22 @@ export interface InputProps {
   id: string;
   label?: ReactNode;
   error?: string;
+  onBlur?: FocusEventHandler<HTMLInputElement> | undefined;
 }
 
-export const Input = ({ value, onChange, size = 'small', id, label, error }: InputProps) => {
+export const Input = ({
+  value,
+  onChange,
+  size = 'small',
+  id,
+  label,
+  error,
+  onBlur
+}: InputProps) => {
   return (
     <Field id={id} label={label} error={error}>
       <input
+        onBlur={onBlur}
         id={id}
         className={input({ size })}
         value={value}

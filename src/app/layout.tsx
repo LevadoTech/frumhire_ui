@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Rubik } from 'next/font/google';
 import './globals.css';
 import { classnames } from '@/utils/classnames';
+import Link from 'next/link';
 
 const rubik = Rubik({ subsets: ['latin'] });
 
@@ -24,7 +25,9 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body className={classnames([body, rubik.className])}>
-        <header className={header}>פרוּם העייר</header>
+        <header className={header}>
+          <Link href="/">Frum Hire</Link>
+        </header>
         <main className={main}>{children}</main>
       </body>
     </html>
