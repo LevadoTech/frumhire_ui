@@ -33,7 +33,9 @@ module.exports = {
           purple: '#759bff',
           purple2: '#843cf6',
           orange: '#ffc480',
-          orange2: '#ff763b'
+          orange2: '#ff763b',
+          pink: '#fc5286',
+          pink2: '#fbaaa2'
         }
       }
     }

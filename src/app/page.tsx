@@ -1,5 +1,6 @@
 import { Button } from '@/components/button/button';
 import { Card } from '@/components/card/card';
+import Icon from '@/components/icon/icon';
 import { ButtonLink } from '@/components/link/button-link';
 import { SitePage } from '@/components/site/site-page';
 import { classnames } from '@/utils/classnames';
@@ -28,9 +29,12 @@ const overlayText = classnames([
 const stats = classnames(['flex w-[100%] justify-center gap-[50px] p-[150px] align-middle']);
 
 const card = classnames([
-  'from-special-purple to-special-purple2 h-[160px] min-w-[350px] max-w-[400px] bg-gradient-to-tr text-[2.5rem] font-[700] text-white'
+  'flex h-[160px] min-w-[350px] max-w-[400px] flex-col bg-gradient-to-tr from-special-purple to-special-purple2 text-[2.5rem] font-[700] text-white'
 ]);
-const card2 = classnames(['from-special-orange to-special-orange2']);
+const card2 = classnames(['!from-special-orange !to-special-orange2']);
+const card3 = classnames(['!from-special-pink2 !to-special-pink']);
+
+const title = classnames(['text-[3rem] font-[700] text-white']);
 
 export default function Home() {
   return (
@@ -51,8 +55,27 @@ export default function Home() {
         </div>
       </div>
       <div className={stats}>
-        <Card className={card}>1.2M פרויקטים</Card>
-        <Card className={classnames([card, card2])}>12.5M ש"ח עברו לפרילנסרים</Card>
+        <Card className={card}>
+          <div className={title}>1.2מ</div>
+          <div className="flex items-center justify-between">
+            פרויקטים
+            <Icon size={50} color="rgba(255,255,255,.4)" name="inbox_customize" />
+          </div>
+        </Card>
+        <Card className={classnames([card, card2])}>
+          <div className={title}>1.2מ</div>
+          <div className="flex items-center justify-between">
+            פרויקטים
+            <Icon size={50} color="rgba(255,255,255,.4)" name="inbox_customize" />
+          </div>
+        </Card>
+        <Card className={classnames([card, card3])}>
+          <div className={title}>1.2מ</div>
+          <div className="flex items-center justify-between">
+            פרויקטים
+            <Icon size={50} color="rgba(255,255,255,.4)" name="inbox_customize" />
+          </div>
+        </Card>
       </div>
 
       <div className="flex w-[100%] justify-center gap-[20px] p-[20px] align-middle">
