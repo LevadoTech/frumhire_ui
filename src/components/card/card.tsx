@@ -12,11 +12,12 @@ const titleStyles = classnames(['m-[0_0_12px_0] text-[2.1rem] font-[500] text-pr
 export interface CardProps {
   children?: ReactNode;
   title?: ReactNode;
+  className?: string;
 }
 
-export const Card = ({ children, title }: CardProps) => {
+export const Card = ({ children, title, className }: CardProps) => {
   return (
-    <div className={classnames(['fh-card', card])}>
+    <div className={classnames(['fh-card', card, className])}>
       <div className={classnames([body, 'body'])}>
         {title && <h4 className={classnames(['title', titleStyles])}>{title}</h4>}
         {children}

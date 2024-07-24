@@ -26,6 +26,14 @@ module.exports = {
         error: '#ff5e5e',
         background: {
           secondary: 'rgba(88, 115, 254, 0.04)'
+        },
+        special: {
+          teal: 'rgba(92,251,247,1)',
+          teal2: 'rgba(92,251,247,.3)',
+          purple: '#759bff',
+          purple2: '#843cf6',
+          orange: '#ffc480',
+          orange2: '#ff763b'
         }
       }
     }
