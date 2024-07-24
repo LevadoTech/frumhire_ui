@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 const form = classnames(['flex w-[100%] flex-col items-center justify-between gap-[40px]']);
 
-const forms = classnames(['flex w-[50%] flex-col items-center justify-between gap-[40px]']);
+const forms = classnames(['flex w-[50%] flex-col items-center justify-center gap-[40px]']);
 
 const NewProject = () => {
   const [value, setValue] = useState('אהרון');
