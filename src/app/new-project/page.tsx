@@ -28,14 +28,7 @@ const NewProject = () => {
               error="שדה חובה"
             />
             <Input id="lastName" label="שם משפחה" value={value2} onChange={setValue2} />
-            <TextArea
-              id="text1"
-              label="הערות"
-              value={textAreaValue}
-              rows={8}
-              cols={6}
-              onChange={setTextAreaValue}
-            />
+            <TextArea id="text1" label="הערות" value={textAreaValue} onChange={setTextAreaValue} />
           </form>
         </Card>
         <Card>
@@ -48,14 +41,7 @@ const NewProject = () => {
               error="שדה חובה"
             />
             <Input id="lastName" label="שם משפחה" value={value2} onChange={setValue2} />
-            <TextArea
-              id="text1"
-              label="הערות"
-              value={textAreaValue}
-              rows={8}
-              cols={6}
-              onChange={setTextAreaValue}
-            />
+            <TextArea id="text1" label="הערות" value={textAreaValue} onChange={setTextAreaValue} />
           </form>
         </Card>
       </div>
