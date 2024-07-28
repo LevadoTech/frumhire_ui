@@ -32,6 +32,7 @@ export default function RootLayout({
       </head>
       <body className={classnames([body, rubik.className])}>
         <header className={header}>
+          <div />
           <Link href="/">Frum Hire</Link>
         </header>
         <main className={main}>{children}</main>

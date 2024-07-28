@@ -1,49 +1,71 @@
 'use client';
 
 import { Card } from '@/components/card/card';
-import { Input } from '@/components/input/input';
 import { SitePage } from '@/components/site/site-page';
 import { classnames } from '@/utils/classnames';
-import { useState } from 'react';
-import { TextArea } from '@/components/text-area/textArea';
+import { useForm } from 'react-hook-form';
+import { InputField } from '@/components/input/input-field';
+import { TextAreaField } from '@/components/text-area/text-area-field';
 
-const form = classnames(['flex w-[100%] flex-col items-center justify-between gap-[40px]']);
+const formStyles = classnames(['flex w-[100%] flex-col items-center justify-between gap-[40px]']);
 
-const forms = classnames(['flex w-[50%] flex-col items-center justify-center gap-[40px]']);
+const wrapper = classnames(['flex w-[50%] flex-col items-center justify-center gap-[40px]']);
 
 const NewProject = () => {
-  const [value, setValue] = useState('אהרון');
-  const [value2, setValue2] = useState('וויינרוב');
-  const [textAreaValue, setTextAreaValue] = useState('הערות');
+  const form = useForm({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      projectDescription: ''
+    }
+  });
+
   return (
     <SitePage>
-      <div className={forms}>
-        <Card title="פרטי קשר">
-          <form className={form}>
-            <Input
+      <div className={wrapper}>
+        <form
+          className={formStyles}
+          onSubmit={form.handleSubmit((vals: any) => {
+            console.log(vals);
+          })}
+        >
+          <Card title="פרטי קשר">
+            <InputField
               id="firstName"
               label="שם פרטי"
-              value={value}
-              onChange={setValue}
-              error="שדה חובה"
+              form={form}
+              rules={{ required: val => !!val || 'שדה חובה' }}
             />
-            <Input id="lastName" label="שם משפחה" value={value2} onChange={setValue2} />
-            <TextArea id="text1" label="הערות" value={textAreaValue} onChange={setTextAreaValue} />
-          </form>
-        </Card>
-        <Card>
-          <form className={form}>
-            <Input
-              id="firstName"
-              label="שם פרטי"
-              value={value}
-              onChange={setValue}
-              error="שדה חובה"
+            <InputField
+              id="lastName"
+              label="שם משפחה"
+              form={form}
+              rules={{ required: val => !!val || 'שדה חובה' }}
             />
-            <Input id="lastName" label="שם משפחה" value={value2} onChange={setValue2} />
-            <TextArea id="text1" label="הערות" value={textAreaValue} onChange={setTextAreaValue} />
-          </form>
-        </Card>
+            <InputField
+              id="email"
+              label="מייל"
+              form={form}
+              rules={{ required: val => !!val || 'שדה חובה' }}
+            />
+            <InputField
+              id="phone"
+              label="טלפון"
+              form={form}
+              rules={{ required: val => !!val || 'שדה חובה' }}
+            />
+          </Card>
+          <Card title="תיאור הפרויקט">
+            <TextAreaField
+              id="projectDescription"
+              label="תספרו לנו על הפרויקט"
+              form={form}
+              rules={{ required: val => !!val || 'שדה חובה' }}
+            />
+          </Card>
+        </form>
       </div>
     </SitePage>
   );

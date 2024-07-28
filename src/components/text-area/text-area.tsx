@@ -2,16 +2,14 @@ import { classnames } from '@/utils/classnames';
 import { Field } from '../form/field';
 import { FocusEventHandler, ReactNode } from 'react';
 
-export const textArea = (height: string, width: string) =>
-  classnames([
-    'rounded-[4px] border-[1px] border-solid border-primary400 p-[0px_12px] text-[1.4rem] font-[400]',
-    'bg-white text-primary',
-    'transition',
-    'resize-y', // אפשר למשתמש לשנות את הגובה
-    `h-[${height}] w-[${width}]`,
+export const textArea = classnames([
+  'rounded-[4px] border-[1px] border-solid border-primary400 p-[10px_12px] text-[1.4rem] font-[400]',
+  'bg-white text-primary',
 
-    'focus-visible:border-primary'
-  ]);
+  'resize-y',
+
+  'focus-visible:border-primary'
+]);
 
 export interface TextAreaProps {
   onChange?: (e: string) => void;
@@ -22,6 +20,7 @@ export interface TextAreaProps {
   onBlur?: FocusEventHandler<HTMLTextAreaElement> | undefined;
   height?: string;
   width?: string;
+  className?: string;
 }
 
 export const TextArea = ({
@@ -32,7 +31,8 @@ export const TextArea = ({
   error,
   onBlur,
   height = '300px',
-  width = '100%'
+  width = '100%',
+  className
 }: TextAreaProps) => {
   return (
     <Field id={id} label={label} error={error}>
@@ -45,7 +45,8 @@ export const TextArea = ({
             onChange(e.target.value);
           }
         }}
-        className={textArea(height, width)}
+        style={{ height: height || '300px', width: width || '100%' }}
+        className={classnames([textArea, className])}
       />
     </Field>
   );
