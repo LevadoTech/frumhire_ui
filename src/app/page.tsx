@@ -2,28 +2,20 @@ import { Button } from '@/components/button/button';
 import { Card } from '@/components/card/card';
 import Icon from '@/components/icon/icon';
 import { ButtonLink } from '@/components/link/button-link';
-import { SitePage } from '@/components/site/site-page';
 import { classnames } from '@/utils/classnames';
-
-const page = classnames([
-  'flex h-[100vh] w-[calc(100vw_-_17px)] flex-col',
-  'gap-[20px]',
-  'items-center',
-  'justify-center'
-]);
 
 const image = classnames(['block h-[100%] w-[100%]']);
 
 const imageBlock = classnames([
-  'after: relative block h-[calc(100vh_-_80px)] max-h-[750px] w-[100%] [clip-path:polygon(0%_0%,100%_0%,100%_100%,0_89%)]'
+  'after: relative block h-[calc(100vh_-_80px)] w-[100%] [clip-path:polygon(0%_0%,100%_0%,100%_100%,0_89%)]'
 ]);
 
 const overlay = classnames([
-  'absolute top-0 block flex h-[100%] w-[100%] items-center bg-[rgba(0,0,0,0.65)] text-[2rem] font-[700] text-white'
+  'absolute top-0 block flex h-[100%] w-[100%] items-center bg-[rgba(0,0,0,0.65)] text-[6rem] font-[700] text-white'
 ]);
 
 const overlayText = classnames([
-  'absolute right-[10%] top-[50%] flex w-[400px] translate-y-[-50%] transform flex-col gap-[20px] p-[40px]'
+  'absolute right-[10%] top-[50%] flex max-w-[600px] translate-y-[-50%] transform flex-col gap-[20px] p-[40px]'
 ]);
 
 const stats = classnames(['flex w-[100%] justify-center gap-[50px] p-[150px] align-middle']);
@@ -47,7 +39,7 @@ export default function Home() {
         />
         <div className={overlay}>
           <div className={overlayText}>
-            יחס אישי בלי הכאב ראש
+            פרילנס לכתחילה
             <ButtonLink clear href="/new-project" size="large">
               Find a Freelancer
             </ButtonLink>
@@ -56,16 +48,16 @@ export default function Home() {
       </div>
       <div className={stats}>
         <Card className={card}>
-          <div className={title}>1.2מ</div>
+          <div className={title}>13,000</div>
           <div className="flex items-center justify-between">
             פרויקטים
             <Icon size={50} color="rgba(255,255,255,.4)" name="inbox_customize" />
           </div>
         </Card>
         <Card className={classnames([card, card2])}>
-          <div className={title}>1.2מ</div>
+          <div className={title}>8,000</div>
           <div className="flex items-center justify-between">
-            פרויקטים
+            פרילנסרים
             <Icon size={50} color="rgba(255,255,255,.4)" name="inbox_customize" />
           </div>
         </Card>
