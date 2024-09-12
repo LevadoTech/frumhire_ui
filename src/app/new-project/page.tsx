@@ -6,11 +6,20 @@ import { classnames } from '@/utils/classnames';
 import { useForm } from 'react-hook-form';
 import { InputField } from '@/components/input/input-field';
 import { TextAreaField } from '@/components/text-area/text-area-field';
+import { Button } from '@/components/button/button';
+import { useMutation } from '@tanstack/react-query';
 
 const formStyles = classnames(['flex w-[100%] flex-col items-center justify-between gap-[40px]']);
 
 const wrapper = classnames(['flex w-[50%] flex-col items-center justify-center gap-[40px]']);
-
+const createProject = async (project: any) => {
+  const response = await fetch('https://frumhire-e18655fb99f3.herokuapp.com/api/Projects', {
+    method: 'POST',
+    body: JSON.stringify(project)
+  });
+  if (!response.ok) throw new Error('Error creating project');
+  return response.json();
+};
 const NewProject = () => {
   const form = useForm({
     defaultValues: {
@@ -21,14 +30,23 @@ const NewProject = () => {
       projectDescription: ''
     }
   });
-
+  const { mutate } = useMutation({
+    mutationFn: (variables: any) => createProject(variables),
+    onSuccess: (result: any) => {
+      console.log('Project created', result);
+    },
+    onError: (result: any) => {
+      console.log('Eror creating project', result);
+    }
+  });
   return (
     <SitePage>
       <div className={wrapper}>
         <form
           className={formStyles}
-          onSubmit={form.handleSubmit((vals: any) => {
+          onSubmit={form.handleSubmit(async (vals: any) => {
             console.log(vals);
+            mutate(vals);
           })}
         >
           <Card title="פרטי קשר">
@@ -65,6 +83,7 @@ const NewProject = () => {
               rules={{ required: val => !!val || 'שדה חובה' }}
             />
           </Card>
+          <Button type="submit">Create Project</Button>
         </form>
       </div>
     </SitePage>
