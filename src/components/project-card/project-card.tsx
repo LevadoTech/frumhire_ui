@@ -11,7 +11,7 @@ export interface ProjectCardProps {
 
 export const ProjectCard = ({ children, picture, title, details, className }: ProjectCardProps) => {
   const cardClasses = classnames([
-    'w-[20%]', 
+    'w-[20%]',
     'bg-white',
     'shadow-[0_0_13px_0_rgba(82,63,105,0.05)]', // Box shadow for a subtle effect
     'p-[2px]', // Padding inside the card
@@ -34,11 +34,7 @@ export const ProjectCard = ({ children, picture, title, details, className }: Pr
   return (
     <div className={cardClasses}>
       {typeof picture === 'string' ? (
-        <img
-          src={picture}
-          alt="Project"
-          className="mb-[15px] h-[150px] w-full object-cover"
-        />
+        <img src={picture} alt="Project" className="mb-[15px] h-[150px] w-full object-cover" />
       ) : (
         picture && <div className="mb-[15px]">{picture}</div>
       )}
