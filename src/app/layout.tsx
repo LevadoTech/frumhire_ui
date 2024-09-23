@@ -3,6 +3,8 @@ import { Rubik } from 'next/font/google';
 import './globals.css';
 import { classnames } from '@/utils/classnames';
 import Link from 'next/link';
+import RootProvider from './RootPrivider';
+import Login from './login/page';
 
 const rubik = Rubik({ subsets: ['latin'] });
 
@@ -31,11 +33,16 @@ export default function RootLayout({
         />
       </head>
       <body className={classnames([body, rubik.className])}>
-        <header className={header}>
-          <div />
-          <Link href="/">Frum Hire</Link>
-        </header>
-        <main className={main}>{children}</main>
+        <RootProvider>
+          <header className={header}>
+            <div />
+            <div className="ml-auto">
+              <Login />
+            </div>
+            <Link href="/">Frum Hire</Link>
+          </header>
+          <main className={main}>{children}</main>
+        </RootProvider>
       </body>
     </html>
   );
