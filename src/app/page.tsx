@@ -74,6 +74,7 @@ export default function Home() {
         <ButtonLink href="/new-project" size="large">
           Post a New Project
         </ButtonLink>
+          פרויקטים 
         <Button clear size="large">
           Find a Project
         </Button>
