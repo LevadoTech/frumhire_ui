@@ -1,5 +1,5 @@
 'use client';
-import { ProjectCard } from '@/components/project-card/project-card';
+import { Card } from '@/components/card/card';
 import { classnames } from '@/utils/classnames';
 
 const Projects = () => {
@@ -54,8 +54,8 @@ const Projects = () => {
 
   const containerStyles = classnames([
     'grid',
-    'grid-cols-4', //4 cards in a row
-    'gap-x-4',
+    'grid-cols-4',
+    'gap-x-[30px]',
     'gap-y-[30px]',
     'p-2',
     'm-[80px]'
@@ -63,13 +63,17 @@ const Projects = () => {
 
   return (
     <div className={containerStyles}>
-      {projects.map(project => (
-        <ProjectCard
-          key={project.title}
-          picture={project.picture}
-          title={project.title}
-          details={project.details}
-        />
+      {projects.map((project, index) => (
+        <Card key={index} title={project.title} className="m-[5px]">
+          {' '}
+          {/* Add margin for card spacing */}
+          <img
+            src={project.picture}
+            alt={project.title}
+            className="mb-[10px] h-[150px] w-full object-cover"
+          />
+          <p>{project.details}</p>
+        </Card>
       ))}
     </div>
   );

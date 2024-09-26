@@ -13,7 +13,7 @@ export const ProjectCard = ({ children, picture, title, details, className }: Pr
   const cardClasses = classnames([
     'w-full',
     'h-[250px]',
-    'w-[280px]',
+    'w-[300px]',
     'bg-white',
     'shadow-[0_0_13px_0_rgba(82,63,105,0.05)]',
     'p-[1px]',
