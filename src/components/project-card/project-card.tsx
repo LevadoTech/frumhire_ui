@@ -11,32 +11,31 @@ export interface ProjectCardProps {
 
 export const ProjectCard = ({ children, picture, title, details, className }: ProjectCardProps) => {
   const cardClasses = classnames([
-    'w-[20%]',
+    'w-full',
+    'h-[250px]',
+    'w-[280px]',
     'bg-white',
-    'shadow-[0_0_13px_0_rgba(82,63,105,0.05)]', // Box shadow for a subtle effect
-    'p-[2px]', // Padding inside the card
+    'shadow-[0_0_13px_0_rgba(82,63,105,0.05)]',
+    'p-[1px]',
     'border-2',
-    className // Custom className passed as a prop
+    'flex',
+    'flex-col',
+    'justify-between',
+    className
   ]);
 
-  const titleClasses = classnames([
-    'text-[1.5rem]', // Title font size
-    'font-bold', // Bold font for the title
-    'mb-[10px]', // Margin-bottom for spacing
-    'text-primary' // Custom primary text color
-  ]);
+  const titleClasses = classnames(['text-[1.5rem]', 'mb-[10px]', 'text-primary']);
 
-  const detailsClasses = classnames([
-    'text-[1rem]', // Details font size
-    'text-gray-700', // Gray text color for details
-    'mb-[10px]' // Margin-bottom for spacing
-  ]);
+  const detailsClasses = classnames(['text-[1rem]', 'text-gray-700', 'mb-[10px]']);
+
+  const imageStyles = classnames(['w-[150px]', 'h-[150px]', 'object-cover']);
+
   return (
     <div className={cardClasses}>
       {typeof picture === 'string' ? (
         <img src={picture} alt="Project" className="mb-[15px] h-[150px] w-full object-cover" />
       ) : (
-        picture && <div className="mb-[15px]">{picture}</div>
+        picture && <div className={imageStyles}>{picture}</div>
       )}
 
       {title && <h3 className={titleClasses}>{title}</h3>}
