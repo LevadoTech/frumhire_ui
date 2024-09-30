@@ -27,8 +27,8 @@ const NewProject = () => {
       <div className={wrapper}>
         <form
           className={formStyles}
-          onSubmit={form.handleSubmit((values: any) => {
-            console.log(values);
+          onSubmit={form.handleSubmit(() => {
+            console.log(form.getValues());
           })}
         >
           <Card title="פרטי קשר">
