@@ -1,7 +1,6 @@
 'use client';
 import { Card } from '@/components/card/card';
 import { classnames } from '@/utils/classnames';
-import Image from 'next/image';
 
 const Projects = () => {
   const projects = [
@@ -67,7 +66,7 @@ const Projects = () => {
       {projects.map((project, index) => (
         <Card key={index} title={project.title} className="m-[5px]">
           {' '}
-          <Image
+          <img
             src={project.picture}
             alt={project.title}
             className="mb-[10px] h-[150px] w-full object-cover"
