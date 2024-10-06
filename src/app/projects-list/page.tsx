@@ -1,4 +1,5 @@
 'use client';
+import { Button } from '@/components/button/button';
 import { Card } from '@/components/card/card';
 import { classnames } from '@/utils/classnames';
 
@@ -9,7 +10,6 @@ const Projects = () => {
       title: 'Fintech Dashboard',
       datePosted: '1.8.2024',
       details: 'A React and Next.js based dashboard for managing financial data',
-      picture: 'https://www.misspetel.com/wp-content/uploads/2019/08/DSC_9336.jpg',
       tags: ['React', 'Next.js', 'Fintech']
     },
     {
@@ -17,7 +17,6 @@ const Projects = () => {
       title: 'E-commerce Platform',
       datePosted: '25.7.2024',
       details: 'A scalable e-commerce platform built with Node.js and MongoDB',
-      picture: 'https://via.placeholder.com/150',
       tags: ['Node.js', 'MongoDB', 'E-commerce']
     },
     {
@@ -25,7 +24,6 @@ const Projects = () => {
       title: 'Portfolio Website',
       datePosted: '15.6.2024',
       details: 'A personal portfolio website to showcase projects and blogs',
-      picture: 'https://via.placeholder.com/150',
       tags: ['HTML', 'CSS', 'JavaScript']
     },
     {
@@ -114,29 +112,25 @@ const Projects = () => {
   ]);
 
   const tagsStyles = classnames([
-    'mb-[10px] mr-[10px] inline-block rounded-full bg-sky-500 px-[10px] py-[8px] text-left text-2xl text-white'
+    'mb-[10px] mr-[10px] inline-block rounded-full bg-black px-[10px] py-[8px] text-left text-2xl text-white'
   ]);
 
   const projectDetailsStyles = classnames([
-    'mb-[10px] text-left text-5xl text-base font-medium leading-relaxed text-gray-800'
+    'mb-[10px] text-left text-4xl text-base font-medium leading-relaxed text-gray-800'
   ]);
 
   const datePostedStyles = classnames([
-    'font-small mb-[10px] text-left text-2xl text-base leading-relaxed text-gray-700'
+    'font-small mb-[10px] text-left text-3xl text-base leading-relaxed text-gray-700'
   ]);
 
   const buttonProjectDetails = classnames(['mb-[10px] inline-block rounded text-3xl text-sky-700']);
 
-  const buttonProjectOffer = classnames([
-    'mb-[10px] inline-block rounded bg-sky-600 px-[15px] py-[8px] text-3xl text-white'
-  ]);
-
   return (
     <div className={containerStyles}>
-      {projects.map((project, index) => (
-        <Card key={index} title={project.title} className="m-[5px] text-left">
+      {projects.map(project => (
+        <Card key={project.id} title={project.title} className="text-left">
           {' '}
-          <h2 className={projectDetailsStyles}>{project.details}</h2>
+          <p className={projectDetailsStyles}>{project.details}</p>
           <div>
             {project.tags.map((tag, i) => (
               <span key={i} className={tagsStyles}>
@@ -146,9 +140,7 @@ const Projects = () => {
           </div>
           <p className={datePostedStyles}>Posted on: {project.datePosted}</p>
           <div className="flex items-center justify-between">
-            <button className={buttonProjectOffer} onClick={() => handleViewDetails()}>
-              {'<'} Submit a proposal for the project
-            </button>
+            <Button size="small">{'<'} submit proposal</Button>
             <button className={buttonProjectDetails} onClick={() => handleViewDetails()}>
               View Details
             </button>
