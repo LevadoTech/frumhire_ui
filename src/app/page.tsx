@@ -3,7 +3,7 @@ import { Card } from '@/components/card/card';
 import Icon from '@/components/icon/icon';
 import { ButtonLink } from '@/components/link/button-link';
 import { classnames } from '@/utils/classnames';
-
+import Image from 'next/image';
 const image = classnames(['block h-[100%] w-[100%]']);
 
 const imageBlock = classnames([
@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <div className={imageBlock}>
-        <img
+        <Image
           className={image}
           src="https://super-monitoring.com/blog/wp-content/uploads/2019/07/freelancers.jpg"
           alt="freelancer"
