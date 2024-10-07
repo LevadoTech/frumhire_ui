@@ -140,7 +140,7 @@ const Projects = () => {
           </div>
           <p className={datePostedStyles}>Posted on: {project.datePosted}</p>
           <div className="flex items-center justify-between">
-            <Button size="small">{'<'} submit proposal</Button>
+            <Button size="small">{'<'} Submit Proposal</Button>
             <button className={buttonProjectDetails} onClick={() => handleViewDetails()}>
               View Details
             </button>
