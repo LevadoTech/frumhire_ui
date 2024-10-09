@@ -23,8 +23,8 @@ const RootProvider = ({
       domain="dev-3lnbnd21i41bvlyu.us.auth0.com"
       clientId="mth0c30xPs3nSneqm2ukTaee5zgf1THf"
       authorizationParams={{
-        redirect_uri: 'https://Freelancer/api/',
-        audience: 'https://frumhire.vercel.app/'
+        redirect_uri: 'https://frumhire.vercel.app/',
+        audience: 'https://Freelancer/api/'
       }}
     >
       {children}
