@@ -7,6 +7,7 @@ export interface ButtonProps {
   size?: 'small' | 'medium' | 'large';
   className?: string;
   type?: 'submit' | 'button';
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void; // הוספת onClick
 }
 
 export const Button = ({
@@ -14,10 +15,15 @@ export const Button = ({
   clear,
   size = 'small',
   className,
-  type = 'button'
+  type = 'button',
+  onClick
 }: ButtonProps) => {
   return (
-    <button type={type} className={classnames(['fh-button', button({ clear, size }), className])}>
+    <button
+      type={type}
+      className={classnames(['fh-button', button({ clear, size }), className])}
+      onClick={onClick}
+    >
       {children}
     </button>
   );
