@@ -5,6 +5,29 @@ import { classnames } from '@/utils/classnames';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 
+const containerStyles = classnames([
+  'grid',
+  'grid-cols-1',
+  'gap-x-[30px]',
+  'gap-y-[30px]',
+  'p-2',
+  'm-[80px]'
+]);
+
+const tagsStyles = classnames([
+  'mb-[10px] mr-[10px] inline-block rounded-full bg-black px-[10px] py-[8px] text-left text-2xl text-white'
+]);
+
+const projectDetailsStyles = classnames([
+  'mb-[10px] text-left text-4xl text-base font-medium leading-relaxed text-gray-800'
+]);
+
+const datePostedStyles = classnames([
+  'font-small mb-[10px] text-left text-3xl text-base leading-relaxed text-gray-700'
+]);
+
+const buttonProjectDetails = classnames(['mb-[10px] inline-block rounded text-3xl text-sky-700']);
+
 interface ProjectCategory {
   projectId: number;
   categoryId: number;
@@ -59,29 +82,6 @@ const Projects = () => {
   const handleViewDetails = (projectId: number) => {
     console.log(`Viewing details for project ID: ${projectId}`);
   };
-
-  const containerStyles = classnames([
-    'grid',
-    'grid-cols-1',
-    'gap-x-[30px]',
-    'gap-y-[30px]',
-    'p-2',
-    'm-[80px]'
-  ]);
-
-  const tagsStyles = classnames([
-    'mb-[10px] mr-[10px] inline-block rounded-full bg-black px-[10px] py-[8px] text-left text-2xl text-white'
-  ]);
-
-  const projectDetailsStyles = classnames([
-    'mb-[10px] text-left text-4xl text-base font-medium leading-relaxed text-gray-800'
-  ]);
-
-  const datePostedStyles = classnames([
-    'font-small mb-[10px] text-left text-3xl text-base leading-relaxed text-gray-700'
-  ]);
-
-  const buttonProjectDetails = classnames(['mb-[10px] inline-block rounded text-3xl text-sky-700']);
 
   return (
     <div className={containerStyles}>
