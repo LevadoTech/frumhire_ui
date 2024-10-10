@@ -3,7 +3,7 @@ import { Button } from '@/components/button/button';
 import { Card } from '@/components/card/card';
 import { classnames } from '@/utils/classnames';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 interface ProjectCategory {
   projectId: number;
@@ -33,29 +33,28 @@ interface Project {
   projectCategories: ProjectCategory[];
 }
 
+const fetchProjects = async () => {
+  const response = await axios.get('https://frumhire-e18655fb99f3.herokuapp.com/api/Projects', {
+    headers: {
+      ApiKey: 'e023f93b-86c8-4e33-8fe7-cb6559645a8e'
+    }
+  });
+  return response.data;
+};
+
 const Projects = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
+  // useQuery to fetch projects
+  const {
+    data: projects = [],
+    isLoading,
+    isError
+  } = useQuery({
+    queryKey: ['projects'], // Query key
+    queryFn: fetchProjects // API call function
+  });
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await axios.get(
-          'https://frumhire-e18655fb99f3.herokuapp.com/api/Projects',
-          {
-            headers: {
-              ApiKey: 'e023f93b-86c8-4e33-8fe7-cb6559645a8e'
-            }
-          }
-        );
-        console.log('date: ' + response.data);
-        setProjects(response.data);
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-      }
-    };
-
-    fetchProjects();
-  }, []);
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error loading projects.</div>;
 
   const handleViewDetails = (projectId: number) => {
     console.log(`Viewing details for project ID: ${projectId}`);
@@ -86,7 +85,7 @@ const Projects = () => {
 
   return (
     <div className={containerStyles}>
-      {projects.map(project => (
+      {projects.map((project: Project) => (
         <Card key={project.projectId} title={project.title} className="text-left">
           {' '}
           <p className={projectDetailsStyles}>{project.description}</p>
