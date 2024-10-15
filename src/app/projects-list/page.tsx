@@ -3,7 +3,7 @@ import { Button } from '@/components/button/button';
 import { Card } from '@/components/card/card';
 import { classnames } from '@/utils/classnames';
 import { useQuery } from '@tanstack/react-query';
-import apiClient from '@/utils/apiClient';
+import createApiClient from '@/utils/apiClient';
 
 const containerStyles = classnames([
   'grid',
@@ -55,6 +55,11 @@ interface Project {
   createdAt: string;
   projectCategories: ProjectCategory[];
 }
+
+const apiClient = createApiClient(
+  'https://frumhire-e18655fb99f3.herokuapp.com/api/',
+  'e023f93b-86c8-4e33-8fe7-cb6559645a8e'
+);
 
 const fetchProjects = async () => {
   const response = await apiClient.get('Projects');
