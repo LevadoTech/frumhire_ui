@@ -52,7 +52,7 @@ const NewProject = () => {
       <div className={wrapper}>
         <form
           className={formStyles}
-          onSubmit={form.handleSubmit((vals: FormValues) => {
+          onSubmit={form.handleSubmit((vals: any) => {
             console.log(vals);
           })}
         >
