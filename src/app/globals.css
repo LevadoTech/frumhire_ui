@@ -12,3 +12,12 @@ html {
 .transition {
   transition: all 0.3s ease-in-out;
 }
+
+.material-symbols-outlined {
+  overflow: hidden;
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
