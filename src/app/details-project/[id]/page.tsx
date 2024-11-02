@@ -31,7 +31,9 @@
 //   'fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50'
 // ]);
 
-// const bidFormStyles = classnames(['p-8 w-1/2 rounded bg-white shadow-md']);
+// const bidFormStyles = classnames([
+//   'p-8 w-[30%] space-y-6 rounded bg-white text-lg shadow-md' //p-6 w-[20%] space-y-6 rounded bg-white shadow-md
+// ]);
 
 // // Example project structure
 // const exampleProject = {
@@ -82,7 +84,6 @@
 //   useEffect(() => {
 //     if (projectId) {
 //       console.log(`Loading project with ID: ${projectId}`);
-//       // שליפה של הפרויקט המבוקש
 //     }
 //   }, [projectId]);
 
@@ -143,18 +144,18 @@
 
 //             {showBidPopup && (
 //               <div className={bidPopupStyles}>
-//                 <div className={`${bidFormStyles} p-8 w-1/2`}>
+//                 <div className={`${bidFormStyles} p-8`}>
 //                   <div className="mb-4 flex items-center justify-between">
-//                     <h4 className="text-2xl font-semibold">Submit Bid</h4>
+//                     <h4 className="text-left text-xl font-semibold">Submit Bid</h4>
 //                     <button
 //                       onClick={() => setShowBidPopup(false)}
-//                       className="text-xl font-bold text-gray-500 hover:text-gray-700"
+//                       className="text-right text-3xl font-bold text-gray-500 hover:text-gray-700"
 //                     >
-//                       ×
+//                       {/* text-2xl font-bold text-gray-500 hover:text-gray-700 */}×
 //                     </button>
 //                   </div>
-//                   <form onSubmit={handleBidSubmit} className="space-y-4 text-xl">
-//                     <label className="block">
+//                   <form onSubmit={handleBidSubmit} className="space-y-4 text-lg">
+//                     <label className={projectDetailsStyles}>
 //                       Hours:
 //                       <input
 //                         type="number"
@@ -164,7 +165,7 @@
 //                         required
 //                       />
 //                     </label>
-//                     <label className="block">
+//                     <label className={projectDetailsStyles}>
 //                       Cost:
 //                       <input
 //                         type="number"
@@ -220,6 +221,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Card } from '@/components/card/card';
@@ -249,41 +251,7 @@ const bidPopupStyles = classnames([
   'fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50'
 ]);
 
-const bidFormStyles = classnames([
-  'p-8 w-[30%] space-y-6 rounded bg-white text-lg shadow-md' //p-6 w-[20%] space-y-6 rounded bg-white shadow-md
-]);
-
-// Example project structure
-const exampleProject = {
-  projectId: 0,
-  userId: 0,
-  user: {
-    userId: 0,
-    username: 'exampleUser',
-    passwordHash: 'hashedPassword',
-    email: 'client@example.com',
-    fullName: 'Example Client',
-    bio: 'This is a bio.',
-    userType: 'client',
-    createdAt: new Date().toISOString()
-  },
-  title: 'Example Project',
-  description: 'This is a detailed description of the project.',
-  price: 0,
-  createdAt: new Date().toISOString(),
-  projectCategories: [
-    {
-      projectId: 0,
-      categoryId: 1,
-      categoryName: 'Web Development'
-    },
-    {
-      projectId: 0,
-      categoryId: 2,
-      categoryName: 'Graphic Design'
-    }
-  ]
-};
+const bidFormStyles = classnames(['p-8 w-[30%] space-y-6 rounded bg-white text-lg shadow-md']);
 
 interface Bid {
   freelancer: string;
@@ -291,8 +259,34 @@ interface Bid {
   cost: string;
 }
 
+interface Project {
+  projectId: number;
+  title: string;
+  description: string;
+  price: number;
+  createdAt: string;
+  user: {
+    fullName: string;
+    email: string;
+  };
+  projectCategories: Array<{ categoryId: number; categoryName: string }>;
+}
+
+const fetchProject = async (projectId: string) => {
+  const response = await axios.get(
+    `https://frumhire-e18655fb99f3.herokuapp.com/api/Projects/${projectId}`,
+    {
+      headers: {
+        ApiKey: 'e023f93b-86c8-4e33-8fe7-cb6559645a8e'
+      }
+    }
+  );
+  return response.data;
+};
+
 const ProjectDetail = () => {
   const { id: projectId } = useParams();
+  const [project, setProject] = useState<Project | null>(null);
   const [userType] = useState('freelancer');
   const [bids, setBids] = useState<Bid[]>([]);
   const [showBidPopup, setShowBidPopup] = useState(false);
@@ -301,7 +295,10 @@ const ProjectDetail = () => {
 
   useEffect(() => {
     if (projectId) {
-      console.log(`Loading project with ID: ${projectId}`);
+      const id = Array.isArray(projectId) ? projectId[0] : projectId;
+      fetchProject(id)
+        .then(data => setProject(data))
+        .catch(() => toast.error('Failed to load project details'));
     }
   }, [projectId]);
 
@@ -328,108 +325,122 @@ const ProjectDetail = () => {
   return (
     <div className={containerStyles}>
       <ToastContainer />
-      <Card
-        key={exampleProject.projectId}
-        title={exampleProject.title}
-        className="mx-auto w-full max-w-[40%] text-left"
-      >
-        <p className={projectTitleStyles}>{exampleProject.description}</p>
-        <p className={projectDetailsStyles}>Project ID: {projectId}</p>
-        <p className={projectDetailsStyles}>
-          Client: {exampleProject.user.fullName} - {exampleProject.user.email}
-        </p>
-        <p className={projectDetailsStyles}>Price: {exampleProject.price}₪</p>
-        <p className={datePostedStyles}>
-          Created At: {new Date(exampleProject.createdAt).toLocaleDateString()}
-        </p>
-        <div className={projectDetailsStyles}>
-          <p className={projectDetailsStyles}>Categories</p>
-          {exampleProject.projectCategories.map(category => (
-            <span key={category.categoryId} className={tagsStyles}>
-              {category.categoryName}
-            </span>
-          ))}
-        </div>
-        {userType === 'freelancer' ? (
-          <div className="mt-6">
-            <h3 className="text-xl font-semibold">Freelancer Details</h3>
-            <button
-              className="px-4 py-2 mt-4 w-full rounded bg-black text-white hover:bg-gray-800"
-              onClick={handleBidClick}
+      {project ? (
+        <Card
+          key={project.projectId}
+          title={project.title}
+          className="mx-auto w-full max-w-[40%] text-left"
+        >
+          <p className={projectTitleStyles}>{project.description}</p>
+          <p className={projectDetailsStyles}>Project ID: {project.projectId}</p>
+          <p className={projectDetailsStyles}>
+            Client: {project.user.fullName} -{' '}
+            <a
+              href={`mailto:${project.user.email}`}
+              className="text-blue-500 underline hover:text-blue-700"
             >
-              Submit Bid
-            </button>
+              {project.user.email}
+            </a>
+          </p>
 
-            {showBidPopup && (
-              <div className={bidPopupStyles}>
-                <div className={`${bidFormStyles} p-8`}>
-                  <div className="mb-4 flex items-center justify-between">
-                    <h4 className="text-left text-xl font-semibold">Submit Bid</h4>
-                    <button
-                      onClick={() => setShowBidPopup(false)}
-                      className="text-right text-3xl font-bold text-gray-500 hover:text-gray-700"
-                    >
-                      {/* text-2xl font-bold text-gray-500 hover:text-gray-700 */}×
-                    </button>
+          <p className={projectDetailsStyles}>Price: {project.price}₪</p>
+          <p className={datePostedStyles}>
+            Created At: {new Date(project.createdAt).toLocaleDateString()}
+          </p>
+          <div className={projectDetailsStyles}>
+            <p className={projectDetailsStyles}>Categories</p>
+            {project.projectCategories.map(category => (
+              <span key={category.categoryId} className={tagsStyles}>
+                {category.categoryName}
+              </span>
+            ))}
+          </div>
+          {userType === 'freelancer' ? (
+            <div className="mt-6">
+              <h3 className="text-xl font-semibold">Freelancer Details</h3>
+              <button
+                className="px-4 py-2 mt-4 w-full rounded bg-black text-white hover:bg-gray-800"
+                onClick={handleBidClick}
+              >
+                Submit Bid
+              </button>
+
+              {showBidPopup && (
+                <div className={bidPopupStyles}>
+                  <div className={`${bidFormStyles} p-8`}>
+                    <div className="mb-4 flex items-center justify-between">
+                      <h4 className="text-left text-xl font-semibold">Submit Bid</h4>
+                      <button
+                        onClick={() => setShowBidPopup(false)}
+                        className="text-right text-3xl font-bold text-gray-500 hover:text-gray-700"
+                      >
+                        ×
+                      </button>
+                    </div>
+                    <form onSubmit={handleBidSubmit} className="space-y-4 text-lg">
+                      <label className={projectDetailsStyles}>
+                        Hours:
+                        <input
+                          type="number"
+                          className="p-2 mt-1 w-full rounded border"
+                          value={bidHours}
+                          onChange={e => setBidHours(e.target.value)}
+                          required
+                        />
+                      </label>
+                      <label className={projectDetailsStyles}>
+                        Cost:
+                        <input
+                          type="number"
+                          className="p-2 mt-1 w-full rounded border"
+                          value={bidCost}
+                          onChange={e => setBidCost(e.target.value)}
+                          required
+                        />
+                      </label>
+                      <button
+                        type="submit"
+                        className="py-2 w-full rounded bg-green-500 text-white hover:bg-green-600"
+                      >
+                        Submit Bid
+                      </button>
+                    </form>
                   </div>
-                  <form onSubmit={handleBidSubmit} className="space-y-4 text-lg">
-                    <label className={projectDetailsStyles}>
-                      Hours:
-                      <input
-                        type="number"
-                        className="p-2 mt-1 w-full rounded border"
-                        value={bidHours}
-                        onChange={e => setBidHours(e.target.value)}
-                        required
-                      />
-                    </label>
-                    <label className={projectDetailsStyles}>
-                      Cost:
-                      <input
-                        type="number"
-                        className="p-2 mt-1 w-full rounded border"
-                        value={bidCost}
-                        onChange={e => setBidCost(e.target.value)}
-                        required
-                      />
-                    </label>
-                    <button
-                      type="submit"
-                      className="py-2 w-full rounded bg-green-500 text-white hover:bg-green-600"
-                    >
-                      Submit Bid
-                    </button>
-                  </form>
                 </div>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="mt-6">
-            <h3 className="text-xl font-semibold">Client Details</h3>
-            <h4 className="mt-4 text-lg font-medium">Received Bids:</h4>
-            <ul className="mt-2 space-y-4">
-              {bids.length > 0 ? (
-                bids.map((bid, index) => (
-                  <li key={index} className="p-4 flex items-center justify-between rounded border">
-                    <span>
-                      Freelancer: {bid.freelancer}, Hours: {bid.hours}, Cost: ₪{bid.cost}
-                    </span>
-                    <button
-                      onClick={() => handleSelectFreelancer(bid.freelancer)}
-                      className="px-3 py-1 rounded bg-green-500 text-white hover:bg-green-600"
-                    >
-                      Select Freelancer
-                    </button>
-                  </li>
-                ))
-              ) : (
-                <p>No bids available for this project.</p>
               )}
-            </ul>
-          </div>
-        )}
-      </Card>
+            </div>
+          ) : (
+            <div className="mt-6">
+              <h3 className="text-xl font-semibold">Client Details</h3>
+              <h4 className="mt-4 text-lg font-medium">Received Bids:</h4>
+              <ul className="mt-2 space-y-4">
+                {bids.length > 0 ? (
+                  bids.map((bid, index) => (
+                    <li
+                      key={index}
+                      className="p-4 flex items-center justify-between rounded border"
+                    >
+                      <span>
+                        Freelancer: {bid.freelancer}, Hours: {bid.hours}, Cost: ₪{bid.cost}
+                      </span>
+                      <button
+                        onClick={() => handleSelectFreelancer(bid.freelancer)}
+                        className="px-3 py-1 rounded bg-green-500 text-white hover:bg-green-600"
+                      >
+                        Select Freelancer
+                      </button>
+                    </li>
+                  ))
+                ) : (
+                  <p>No bids available for this project.</p>
+                )}
+              </ul>
+            </div>
+          )}
+        </Card>
+      ) : (
+        <p>Loading project details...</p>
+      )}
     </div>
   );
 };
