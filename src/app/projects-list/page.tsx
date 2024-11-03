@@ -14,16 +14,21 @@ const containerStyles = classnames([
   'm-[80px]'
 ]);
 
+const projectDetailsStyles = classnames([
+  'mb-[10px]',
+  'text-left',
+  'text-3xl',
+  'font-medium',
+  'leading-relaxed',
+  'text-gray-800'
+]);
+
 const tagsStyles = classnames([
   'mb-[10px] mr-[10px] inline-block rounded-full bg-black px-[10px] py-[8px] text-left text-2xl text-white'
 ]);
 
-const projectDetailsStyles = classnames([
-  'mb-[10px] text-left text-4xl text-base font-medium leading-relaxed text-gray-800'
-]);
-
 const datePostedStyles = classnames([
-  'font-small mb-[10px] text-left text-3xl text-base leading-relaxed text-gray-700'
+  'font-small mb-[10px] text-left text-base text-[1.6rem] leading-relaxed text-gray-700'
 ]);
 
 const buttonProjectDetails = classnames(['mb-[10px] inline-block rounded text-3xl text-sky-700']);
@@ -57,8 +62,7 @@ interface Project {
 }
 
 const apiClient = createApiClient(
-  'https://frumhire-e18655fb99f3.herokuapp.com/api/',
-  'e023f93b-86c8-4e33-8fe7-cb6559645a8e'
+  'https://frumhire-e18655fb99f3.herokuapp.com/api/'
 );
 
 const fetchProjects = async () => {

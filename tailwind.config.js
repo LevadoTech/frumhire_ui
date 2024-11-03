@@ -9,10 +9,13 @@ module.exports = {
     padding: {
       header: '80px'
     },
-
     extend: {
       boxShadow: {
         focus: '0 0 0 2px rgba(137,137,137, .6)'
+      },
+      fontSize: {
+        '3xl': '1.875rem',
+        '4xl': '2.25rem'
       },
       colors: {
         primary: '#121212',
