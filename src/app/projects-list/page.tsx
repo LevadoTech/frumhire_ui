@@ -28,7 +28,7 @@ const tagsStyles = classnames([
 ]);
 
 const datePostedStyles = classnames([
-  'font-small mb-[10px] text-left text-base text-[1.6rem] leading-relaxed text-gray-700'
+  'font-small mb-[10px] text-left text-[1.6rem] text-base leading-relaxed text-gray-700'
 ]);
 
 const buttonProjectDetails = classnames(['mb-[10px] inline-block rounded text-3xl text-sky-700']);
@@ -61,9 +61,7 @@ interface Project {
   projectCategories: ProjectCategory[];
 }
 
-const apiClient = createApiClient(
-  'https://frumhire-e18655fb99f3.herokuapp.com/api/'
-);
+const apiClient = createApiClient('https://frumhire-e18655fb99f3.herokuapp.com/api/');
 
 const fetchProjects = async () => {
   const response = await apiClient.get('Projects');
