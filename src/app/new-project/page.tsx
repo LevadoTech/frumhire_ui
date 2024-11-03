@@ -69,54 +69,50 @@ const NewProject = () => {
               form={form}
               rules={{ required: val => !!val || 'שדה חובה' }}
             />
-            <div className="mt-6 grid grid-cols-2 gap-8">
-              <div className="flex flex-col gap-4">
-                <Checkbox
-                  label="example1"
-                  onChange={handleCheckboxChange('example1')}
-                  checked={checkboxValues.example1}
-                  size="small"
-                />
-                <Checkbox
-                  label="example2"
-                  onChange={handleCheckboxChange('example2')}
-                  checked={checkboxValues.example2}
-                  size="small"
-                />
-                <Checkbox
-                  label="example3"
-                  onChange={handleCheckboxChange('example3')}
-                  checked={checkboxValues.example3}
-                  size="small"
-                />
-              </div>
-              <div className="flex flex-col gap-4">
-                <RadioButton
-                  label="example1"
-                  value="example1"
-                  checked={selectedRadio === 'example1'}
-                  onChange={() => handleRadioChange('example1')}
-                  name="radioGroup"
-                  size="small"
-                />
-                <RadioButton
-                  label="example2"
-                  value="example2"
-                  checked={selectedRadio === 'example2'}
-                  onChange={() => handleRadioChange('example2')}
-                  name="radioGroup"
-                  size="small"
-                />
-                <RadioButton
-                  label="example3"
-                  value="example3"
-                  checked={selectedRadio === 'example3'}
-                  onChange={() => handleRadioChange('example3')}
-                  name="radioGroup"
-                  size="small"
-                />
-              </div>
-            </div>
+
+            <Checkbox
+              label="example1"
+              onChange={handleCheckboxChange('example1')}
+              checked={checkboxValues.example1}
+              size="medium"
+            />
+            <Checkbox
+              label="example2"
+              onChange={handleCheckboxChange('example2')}
+              checked={checkboxValues.example2}
+              size="medium"
+            />
+            <Checkbox
+              label="example3"
+              onChange={handleCheckboxChange('example3')}
+              checked={checkboxValues.example3}
+              size="medium"
+            />
+
+            <RadioButton
+              label="example1"
+              value="example1"
+              checked={selectedRadio === 'example1'}
+              onChange={() => handleRadioChange('example1')}
+              name="radioGroup"
+              size="medium"
+            />
+            <RadioButton
+              label="example2"
+              value="example2"
+              checked={selectedRadio === 'example2'}
+              onChange={() => handleRadioChange('example2')}
+              name="radioGroup"
+              size="medium"
+            />
+            <RadioButton
+              label="example3"
+              value="example3"
+              checked={selectedRadio === 'example3'}
+              onChange={() => handleRadioChange('example3')}
+              name="radioGroup"
+              size="medium"
+            />
           </Card>
           <Card>
             <InputField id="email" label="מייל" form={form} />
