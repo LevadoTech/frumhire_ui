@@ -2,11 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Card } from '@/components/card/card';
 import { classnames } from '@/utils/classnames';
+import createApiClient from '@/utils/apiClient';
+import { Button } from '@/components/button/button';
+import { useForm } from 'react-hook-form';
+import { InputField } from '@/components/input/input-field';
+import { Icon } from '@/components/icon/icon';
 
 const tagsStyles = classnames([
   'mb-[10px] mr-[10px] inline-block rounded-full bg-black px-[10px] py-[4px] text-left text-lg text-white'
@@ -24,13 +28,19 @@ const datePostedStyles = classnames([
   'font-small mb-[10px] text-left text-2xl leading-relaxed text-gray-700'
 ]);
 
-const containerStyles = classnames(['p-6 flex min-h-screen flex-col items-center justify-center']);
+const containerStyles = classnames([
+  'p-6 mt-20 flex min-h-screen flex-col items-center justify-start'
+]);
 
 const bidPopupStyles = classnames([
   'fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50'
 ]);
 
 const bidFormStyles = classnames(['p-8 w-[30%] space-y-6 rounded bg-white text-lg shadow-md']);
+
+const formStyles = classnames([
+  'flex w-[100%] flex-col items-center justify-between gap-[40px] text-right'
+]);
 
 interface Bid {
   freelancer: string;
@@ -51,15 +61,10 @@ interface Project {
   projectCategories: Array<{ categoryId: number; categoryName: string }>;
 }
 
+const apiClient = createApiClient('https://frumhire-e18655fb99f3.herokuapp.com/api/');
+
 const fetchProject = async (projectId: string) => {
-  const response = await axios.get(
-    `https://frumhire-e18655fb99f3.herokuapp.com/api/Projects/${projectId}`,
-    {
-      headers: {
-        ApiKey: 'e023f93b-86c8-4e33-8fe7-cb6559645a8e'
-      }
-    }
-  );
+  const response = await apiClient.get(`Projects/${projectId}`);
   return response.data;
 };
 
@@ -67,10 +72,26 @@ const ProjectDetail = () => {
   const { id: projectId } = useParams();
   const [project, setProject] = useState<Project | null>(null);
   const [userType] = useState('freelancer');
-  const [bids, setBids] = useState<Bid[]>([]);
+  const [bids, setBids] = useState<Bid[]>([
+    {
+      freelancer: 'freelancer@example.com',
+      hours: '2',
+      cost: '100'
+    },
+    {
+      freelancer: 'freelancer@example.com',
+      hours: '2',
+      cost: '100'
+    }
+  ]);
   const [showBidPopup, setShowBidPopup] = useState(false);
-  const [bidHours, setBidHours] = useState('');
-  const [bidCost, setBidCost] = useState('');
+
+  const form = useForm({
+    defaultValues: {
+      hours: '',
+      cost: ''
+    }
+  });
 
   useEffect(() => {
     if (projectId) {
@@ -83,23 +104,33 @@ const ProjectDetail = () => {
 
   const handleBidClick = () => setShowBidPopup(true);
 
-  const handleBidSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (parseInt(bidHours) <= 0 || parseFloat(bidCost) <= 0) {
-      toast.error('Hours and costs must be positive!');
+  const handleBidSubmit = (vals: any) => {
+    if (parseInt(vals.hours) <= 0 || parseFloat(vals.cost) <= 0) {
+      toast.error('השעות והמחיר חייבים להיות חיוביים');
       return;
     }
-    const newBid: Bid = { freelancer: 'freelancer@example.com', hours: bidHours, cost: bidCost };
+
+    const newBid: Bid = {
+      freelancer: 'freelancer@example.com',
+      hours: vals.hours,
+      cost: vals.cost
+    };
+
     setBids([...bids, newBid]);
     setShowBidPopup(false);
-    toast.success('Bid submitted successfully!');
-    setBidHours('');
-    setBidCost('');
+    toast.success('!ההצעה נשלחה בהצלחה');
+    form.reset();
+  };
+
+  const handleClosePopup = () => {
+    setShowBidPopup(false);
   };
 
   const handleSelectFreelancer = (freelancer: string) => {
     toast.success(`Freelancer ${freelancer} selected!`);
   };
+
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <div className={containerStyles}>
@@ -136,53 +167,43 @@ const ProjectDetail = () => {
           </div>
           {userType === 'freelancer' ? (
             <div className="mt-6">
-              <h3 className="text-xl font-semibold">Freelancer Details</h3>
-              <button
-                className="px-4 py-2 mt-4 w-full rounded bg-black text-lg text-white hover:bg-gray-800"
-                onClick={handleBidClick}
-              >
+              <Button onClick={handleBidClick} size="small">
                 Submit Bid
-              </button>
+              </Button>
 
               {showBidPopup && (
                 <div className={bidPopupStyles}>
-                  <div className={`${bidFormStyles} p-8`}>
-                    <div className="mb-4 flex items-center justify-between">
-                      <h4 className="text-left text-xl font-semibold">Submit Bid</h4>
-                      <button
-                        onClick={() => setShowBidPopup(false)}
-                        className="text-right text-3xl font-bold text-gray-500 hover:text-gray-700"
-                      >
-                        ×
-                      </button>
-                    </div>
-                    <form onSubmit={handleBidSubmit} className="space-y-4 text-lg">
-                      <label className={projectDetailsStyles}>
-                        Hours:
-                        <input
-                          type="number"
-                          className="p-2 mt-1 w-full rounded border"
-                          value={bidHours}
-                          onChange={e => setBidHours(e.target.value)}
-                          required
+                  <div className={`${bidFormStyles} p-8 relative`}>
+                    <Button className="p-0 absolute left-2 top-2" onClick={handleClosePopup} clear>
+                      <Icon name="close" color="red" size={30} />
+                    </Button>
+                    <form
+                      className={formStyles}
+                      onSubmit={form.handleSubmit((vals: any) => {
+                        console.log(vals);
+                        handleBidSubmit(vals);
+                      })}
+                    >
+                      <Card title="טופס הצעה">
+                        <InputField
+                          id="hours"
+                          label="שעות"
+                          form={form}
+                          rules={{ required: val => !!val || 'שדה חובה' }}
                         />
-                      </label>
-                      <label className={projectDetailsStyles}>
-                        Cost:
-                        <input
-                          type="number"
-                          className="p-2 mt-1 w-full rounded border"
-                          value={bidCost}
-                          onChange={e => setBidCost(e.target.value)}
-                          required
+                        <InputField
+                          id="cost"
+                          label="מחיר "
+                          form={form}
+                          rules={{ required: val => !!val || 'שדה חובה' }}
                         />
-                      </label>
-                      <button
-                        type="submit"
-                        className="py-2 w-full rounded bg-green-500 text-white hover:bg-green-600"
-                      >
-                        Submit Bid
-                      </button>
+                        <Button
+                          type="submit"
+                          className="py-2 w-full rounded bg-green-500 text-white hover:bg-green-600"
+                        >
+                          שליחת ההצעה
+                        </Button>
+                      </Card>
                     </form>
                   </div>
                 </div>
@@ -190,24 +211,25 @@ const ProjectDetail = () => {
             </div>
           ) : (
             <div className="mt-6">
-              <h3 className="text-xl font-semibold">Client Details</h3>
-              <h4 className="mt-4 text-lg font-medium">Received Bids:</h4>
+              <h4 className="mt-4 text-lg font-medium">:Received Bids</h4>
               <ul className="mt-2 space-y-4">
                 {bids.length > 0 ? (
                   bids.map((bid, index) => (
                     <li
                       key={index}
-                      className="p-4 flex items-center justify-between rounded border"
+                      className={`p-4 relative flex cursor-pointer items-center justify-between rounded border ${
+                        hoveredIndex === index ? 'bg-gray-100' : ''
+                      }`}
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      onClick={() => handleSelectFreelancer(bid.freelancer)}
                     >
-                      <span>
-                        Freelancer: {bid.freelancer}, Hours: {bid.hours}, Cost: ₪{bid.cost}
+                      <span className={projectDetailsStyles}>
+                        Freelancer: {bid.freelancer}, Hours: {bid.hours}, Cost: {bid.cost}₪
                       </span>
-                      <button
-                        onClick={() => handleSelectFreelancer(bid.freelancer)}
-                        className="px-3 py-1 rounded bg-green-500 text-white hover:bg-green-600"
-                      >
-                        Select Freelancer
-                      </button>
+                      {hoveredIndex === index && (
+                        <Icon name="check_circle" color="green" size={25} />
+                      )}
                     </li>
                   ))
                 ) : (
