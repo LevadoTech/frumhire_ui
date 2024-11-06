@@ -2,8 +2,8 @@
 import { Button } from '@/components/button/button';
 import { Card } from '@/components/card/card';
 import { classnames } from '@/utils/classnames';
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
+import createApiClient from '@/utils/apiClient';
 
 const containerStyles = classnames([
   'grid',
@@ -14,16 +14,21 @@ const containerStyles = classnames([
   'm-[80px]'
 ]);
 
+const projectDetailsStyles = classnames([
+  'mb-[10px]',
+  'text-left',
+  'text-3xl',
+  'font-medium',
+  'leading-relaxed',
+  'text-gray-800'
+]);
+
 const tagsStyles = classnames([
   'mb-[10px] mr-[10px] inline-block rounded-full bg-black px-[10px] py-[8px] text-left text-2xl text-white'
 ]);
 
-const projectDetailsStyles = classnames([
-  'mb-[10px] text-left text-4xl text-base font-medium leading-relaxed text-gray-800'
-]);
-
 const datePostedStyles = classnames([
-  'font-small mb-[10px] text-left text-3xl text-base leading-relaxed text-gray-700'
+  'font-small mb-[10px] text-left text-[1.6rem] text-base leading-relaxed text-gray-700'
 ]);
 
 const buttonProjectDetails = classnames(['mb-[10px] inline-block rounded text-3xl text-sky-700']);
@@ -56,12 +61,10 @@ interface Project {
   projectCategories: ProjectCategory[];
 }
 
+const apiClient = createApiClient('https://frumhire-e18655fb99f3.herokuapp.com/api/');
+
 const fetchProjects = async () => {
-  const response = await axios.get('https://frumhire-e18655fb99f3.herokuapp.com/api/Projects', {
-    headers: {
-      ApiKey: 'e023f93b-86c8-4e33-8fe7-cb6559645a8e'
-    }
-  });
+  const response = await apiClient.get('Projects');
   return response.data;
 };
 
